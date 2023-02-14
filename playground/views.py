@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from store.models import Product
 
-# Create your views here.
-# def say_hello(request):
-#     return HttpResponse("Hello World")
 
 def say_hello(request):
-    return render(request, 'hello.html', { 'name': 'Duy'})
+    query_set = Product.objects.filter(unit_price__range=(20, 30)).all()
+    # query_set = Product.objects.filter(collection__id__range=(1, 3)).all()
+    # query_set = Product.objects.filter(title__icontains='coffee').all()
+    # query_set = Product.objects.filter(last_update__year=2021).all()
+    # query_set = Product.objects.filter(description__isnull=True).all()
+
+    return render(request, 'hello.html', {'name': 'Duy', 'products': list(query_set)})
