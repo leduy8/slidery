@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Q, F
+from django.db.models import Q, F, Value, ExpressionWrapper, DecimalField
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 
 from store.models import Product, Order, Customer
@@ -68,5 +68,10 @@ def say_hello(request):
     # ANNOTATING
     # query_set = Customer.objects.annotate(is_new=True).all()
 
+    # EXPRESSION WRAPPER
+    # discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
+    # query_set = Product.objects.annotate(
+    #     discounted_price=discounted_price
+    # )
 
     return render(request, 'hello.html', {'name': 'Duy', 'products': list(query_set), 'product': product, 'result': result})
