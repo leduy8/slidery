@@ -84,11 +84,6 @@ def say_hello(request):
     product = None
     result = None
 
-    content_type = ContentType.objects.get_for_model(Product)
-
-    query_set = TaggedItem.objects.select_related('tag').filter(
-        content_type=content_type,
-        object_id=1
-    ).all()
+    query_set = TaggedItem.objects.get_tags_for(Product, 1)
 
     return render(request, 'hello.html', {'name': 'Duy', 'products': list(query_set), 'product': product, 'result': result})
