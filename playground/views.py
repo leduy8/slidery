@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.db import transaction
 from django.db.models import Q, F, Value, ExpressionWrapper, DecimalField
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.contrib.contenttypes.models import ContentType
 
-from store.models import Product, Order, Customer, Collection
+from store.models import Product, Order, Customer, Collection, OrderItem
 from tags.models import TaggedItem
 
 
@@ -113,5 +114,23 @@ def say_hello(request):
     # collection = Collection.objects.filter(pk=11).delete()
     # DELETE multiple
     # collection = Collection.objects.filter(id__gt=10).delete()
+
+    # TRANSACTION
+    # Apply transaction for a whole function
+    # # @transaction.atomic()
+    # # def abc(request):
+    # #     ...
+    # Apply transaction within a certain code
+    # with transaction.atomic():
+    #     order = Order()
+    #     order.customer_id = 1
+    #     order.save()
+
+    #     item = OrderItem()
+    #     item.order = order
+    #     item.product_id = -1
+    #     item.quantity = 1
+    #     item.unit_price = 10
+    #     item.save()
 
     return render(request, 'hello.html', {'name': 'Duy', 'products': list(queryset), 'product': product, 'result': result})
