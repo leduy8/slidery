@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db import transaction
+from django.db import transaction, connection
 from django.db.models import Q, F, Value, ExpressionWrapper, DecimalField
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.contrib.contenttypes.models import ContentType
@@ -132,5 +132,16 @@ def say_hello(request):
     #     item.quantity = 1
     #     item.unit_price = 10
     #     item.save()
+
+    # RAW QUERY
+    # With ORM
+    # queryset = Product.objects.raw('SELECT id, title FROM store_product')
+
+    # With raw connection cursor
+    # with connection.cursor() as cursor:
+    #     cursor.execute('SELECT id, title FROM store_product')
+
+        # GET STORE PROCEDURE
+        # cursor.callproc('get_customers', [1, 2, 'a'])
 
     return render(request, 'hello.html', {'name': 'Duy', 'products': list(queryset), 'product': product, 'result': result})
