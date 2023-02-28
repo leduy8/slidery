@@ -1,9 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
-# Create your models here.
 
 # Create your models here.
 class LikedItem(models.Model):
