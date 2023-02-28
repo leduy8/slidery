@@ -5,7 +5,7 @@ from django.http import HttpRequest
 from django.db.models.aggregates import Count
 from django.utils.html import format_html, urlencode
 from django.urls import reverse
-from . import models
+from .models import Product, Customer, Order, OrderItem, Collection
 
 
 class InventoryFilter(admin.SimpleListFilter):
@@ -22,7 +22,7 @@ class InventoryFilter(admin.SimpleListFilter):
             return queryset.filter(inventory__lt=10)
 
 
-@admin.register(models.Product)
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     autocomplete_fields = ['collection']
     prepopulated_fields = {
@@ -55,7 +55,7 @@ class ProductAdmin(admin.ModelAdmin):
         )
 
 
-@admin.register(models.Customer)
+@admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'membership', 'orders']
     list_editable = ['membership']
@@ -82,20 +82,20 @@ class CustomerAdmin(admin.ModelAdmin):
         )
 
 class OrderItemInline(admin.TabularInline): # The other Inline is StackedInline
-    model = models.OrderItem
+    model = OrderItem
     min_num = 1
     max_num = 10
     autocomplete_fields = ['product']
     extra = 0
 
-@admin.register(models.Order)
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'placed_at', 'customer']
     list_per_page = 10
     autocomplete_fields = ['customer']
     inlines = [OrderItemInline]
 
-@admin.register(models.Collection)
+@admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ['title', 'products_count']
     search_fields = ['title']
