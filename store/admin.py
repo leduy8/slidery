@@ -34,6 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 10
     list_select_related = ['collection']
     list_filter = ['collection', 'last_update', InventoryFilter]
+    search_fields = ['title']
 
     @admin.display(ordering='inventory')
     def inventory_status(self, product):
@@ -80,11 +81,19 @@ class CustomerAdmin(admin.ModelAdmin):
             orders_count=Count('order')
         )
 
+class OrderItemInline(admin.TabularInline): # The other Inline is StackedInline
+    model = models.OrderItem
+    min_num = 1
+    max_num = 10
+    autocomplete_fields = ['product']
+    extra = 0
+
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'placed_at', 'customer']
     list_per_page = 10
     autocomplete_fields = ['customer']
+    inlines = [OrderItemInline]
 
 @admin.register(models.Collection)
 class CollectionAdmin(admin.ModelAdmin):
