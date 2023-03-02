@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.db.models.aggregates import Count
 from rest_framework import serializers
 
 from .models import Collection, Product
@@ -8,7 +9,9 @@ from .models import Collection, Product
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ["id", "title"]
+        fields = ["id", "title", "products_count"]
+
+    products_count = serializers.IntegerField(read_only=True)
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -26,20 +29,6 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
-    # collection = CollectionSerializer()
 
     def calculate_tax(self, product: Product):
         return product.unit_price * Decimal(1.1)
-
-    # # Override create
-    # def create(self, validated_data):
-    #     product = Product(**validated_data)
-    #     product.other = 1
-    #     product.save()
-    #     return product
-
-    # # Override update
-    # def update(self, instance, validated_data):
-    #     instance.unit_price = validated_data.get('unit_price')
-    #     instance.save()
-    #     return instance

@@ -34,7 +34,9 @@ class Product(models.Model):
     last_update = models.DateTimeField(
         auto_now=True
     )  # ? Django fill everytime record got updated
-    collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    collection = models.ForeignKey(
+        Collection, on_delete=models.PROTECT, related_name="products"
+    )
     promotions = models.ManyToManyField(Promotion, blank=True)
 
     def __str__(self) -> str:
