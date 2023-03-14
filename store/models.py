@@ -98,6 +98,9 @@ class Order(models.Model):
     )
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
+    class Meta:
+        permissions = [("cancel_order", "Can change order")]
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
