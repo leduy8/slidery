@@ -7,7 +7,6 @@ from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
     RetrieveModelMixin,
-    UpdateModelMixin,
 )
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
