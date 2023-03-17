@@ -20,6 +20,13 @@ source venv/bin/activate
 
 ### Setup data
 
+#### Automatically
+```sh
+setup.bat # Windows
+sh setup.sh # Linux / MacOS
+```
+
+#### Manually
 ```sh
 python manage.py migrate
 python manage.py seed_db
