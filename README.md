@@ -3,8 +3,11 @@
 ## Installation
 
 Python 3.8+
+
 PostgreSQL 8+
+
 Create database for the project
+
 Setup .env file
 
 ### Install the virtual environment and its packages and start the server.
