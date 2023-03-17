@@ -23,7 +23,7 @@ source venv/bin/activate
 #### Automatically
 ```sh
 setup.bat # Windows
-sh setup.sh # Linux / MacOS
+source setup.sh # Linux / MacOS
 ```
 
 #### Manually
