@@ -1,8 +1,8 @@
 if exist venv\ (
-    .\venv\Script\activate
+    .\venv\Scripts\activate
 ) else (
     python -m venv venv
-    .\venv\Script\activate
+    .\venv\Scripts\activate
     pip install -r requirements-windows.txt
 )
 python manage.py migrate
