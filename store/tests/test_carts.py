@@ -12,5 +12,6 @@ class CartTestCase(TestCase):
         Cart.objects.create(id=self.my_uuid, created_at=datetime.now())
 
     def test_cart_creation(self):
+        # Test create Cart
         cart = Cart.objects.get(id=self.my_uuid)
         self.assertIsInstance(cart, Cart)
