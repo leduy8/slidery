@@ -35,12 +35,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Setup environment variables
       run: |
-        export SECRET_KEY=abcdef1234
-        export DATABASE_NAME=github_actions
-        export DATABASE_USER=postgres
-        export DATABASE_PASSWORD=postgres
-        export DATABASE_HOST=127.0.0.1
-        export DATABASE_PORT=5432
+        echo "SECRET_KEY=abcdef1234" >> $GITHUB_ENV
+        echo "DATABASE_NAME=github_actions" >> $GITHUB_ENV
+        echo "DATABASE_USER=postgres" >> $GITHUB_ENV
+        echo "DATABASE_PASSWORD=postgres" >> $GITHUB_ENV
+        echo "DATABASE_HOST=127.0.0.1" >> $GITHUB_ENV
+        echo "DATABASE_PORT=5432" >> $GITHUB_ENV
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
