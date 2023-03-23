@@ -1,9 +1,23 @@
 version: '3.10'
 
 services:
+    
+  db:
+    image: postgres:15-alpine
+    ports:
+      - '5444:5444'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password1234
+      POSTGRES_DB: slidery
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    command: -p 5444
+  
   backend:
     build: .
-    # command: python manage.py runserver 0.0.0.0:8001
+    command: > 
+      sh -c "source scripts/setup_docker.sh"
     depends_on:
       - db
     ports:
@@ -13,19 +27,7 @@ services:
       - DATABASE_NAME=slidery
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=password1234
-      - DATABASE_PORT=5432
+      - DATABASE_PORT=5444
       - DATABASE_HOST=db
     volumes:
       - .:/app
-    
-  db:
-    image: postgres:15-alpine
-    ports:
-      - '5432:5432' # Use 5444 because default psql in computer use 5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password1234
-      POSTGRES_DB: slidery
-      POSTGRES_HOST_AUTH_METHOD: trust
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
